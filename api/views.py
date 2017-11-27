@@ -1,4 +1,5 @@
 import json
+import hashlib
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -13,18 +14,16 @@ def index(request):
 def app(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        name = data["name"]
-        email = data["email"]
+        app_name = data["name"]
+        app_email = data["email"]
         app_type = data["type"]
-        print name
-        print email
-        print app_type
-        if name != "" and email != "" and app_type != "":
-            a_info = AppInfo(app_name=name,app_email=email,app_type=app_type)
+        if app_name != "" and app_email != "" and app_type != "":
+            a_info = AppInfo(app_name=app_name,app_email=app_email,app_type=app_type)
             a_info.save()
-            return JsonResponse({'status':'OK'})
+            token = hashlib.sha1("%sand%s"%(app_name,app_email)).hexdigest()
+            return JsonResponse({'token':token})
         else:
-            return HttpResponse(request.body)
+            return JsonResponse({'status':'ERROR'})
     elif request.method == 'GET':
         return JsonResponse({'status':'ERROR'})
 
