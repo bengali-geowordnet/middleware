@@ -25,7 +25,7 @@ SECRET_KEY = 'ch5a*zdi9=7abz_@1zh#vo2aq*o%8n5py0eqo_w2l1bwvboncs'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','geocrowdsource-geosource.193b.starter-ca-central-1.openshiftapps.com']
 
 
 # Application definition
