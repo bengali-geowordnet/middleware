@@ -13,7 +13,7 @@ def index(request):
 @csrf_exempt
 def app(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
+        data = json.loads(request.body.decode('utf-8'))
         app_name = data["name"]
         app_email = data["email"]
         app_type = data["type"]
