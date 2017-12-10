@@ -21,7 +21,7 @@ def app(request):
         app_email = data["email"]
         app_type = data["type"]
         if app_name != "" and app_email != "" and app_type != "":
-            token = hashlib.sha1("%sand%s" % (app_name, app_email)).hexdigest()
+            token = hashlib.sha1(("%sand%s" % (app_name, app_email)).encode('utf-8')).hexdigest()
             a_info = AppInfo(app_name=app_name, app_email=app_email, app_type=app_type, app_key=token)
             a_info.save()
             return JsonResponse({'token': token})
@@ -39,7 +39,7 @@ def user(request):
         user_email = data["email"]
         user_phone = data["phone"]
         if user_name != "" and (user_email != "" or user_phone != ""):
-            token = hashlib.sha1("%sand%sand%s" % (user_name, user_email, user_phone)).hexdigest()
+            token = hashlib.sha1(("%sand%sand%s" % (user_name, user_email, user_phone)).encode('utf-8')).hexdigest()
             user_info = UserInfo(user_name=user_name, user_email=user_email, user_phone=user_phone, user_key=token)
             user_info.save()
             return JsonResponse({'token': token})
